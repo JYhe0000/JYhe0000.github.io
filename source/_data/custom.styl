@@ -27,3 +27,12 @@
   --color-pink-light: shade(#dbeafe, 80%)
   --color-cyan-light: shade(#eff6ff, 80%)
   --color-pink-a3: alpha(#3b82f6, .3)
+
+// 赞赏页（/coffee/）：赞赏码图片居中，桌面 360px，窄屏自适应缩放
+// 注：主题图片查看器会给图片加内联 width/height，需 !important 覆盖
+.page .body.md img
+  width: 360px !important
+  max-width: 100% !important // 容器窄于 360px 时缩放到撑满
+  height: auto !important
+  border-radius: 1rem
+

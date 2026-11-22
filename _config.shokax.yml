@@ -37,6 +37,7 @@ menu:
   about:
     default: / || user
     aboutsite: /about/ || user
+  Buy me a coffee: /coffee/ || coffee
 
 social:
   github: https://github.com/JYhe0000 || github || "#191717"
