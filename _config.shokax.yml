@@ -1,0 +1,69 @@
+# shokaX 主题配置（覆盖主题默认值）
+# 完整配置项参见 node_modules/hexo-theme-shokax/_config.yml
+
+alternate: JYhe # 站点大标题
+
+grayMode: false
+
+homeConfig:
+  gradient: false
+  fixedCover: "" # 为空则使用 bing 随机图片
+  coverConfig:
+    enableCover: true
+    enablePreload: true
+    enableNextGradientCover: false
+
+icon:
+  favicon: "/favicon.ico"
+
+darkmode: true
+auto_dark:
+  enable: true
+  start: 20
+  end: 7
+
+loader:
+  start: true
+  switch: false
+
+menu:
+  home: / || home
+  posts:
+    default: / || feather
+    archives: /archives/ || list-alt
+    categories: /categories/ || th
+    tags: /tags/ || tags
+  about:
+    default: / || user
+    aboutsite: /about/ || user
+
+social:
+  github: https://github.com/JYhe0000 || github || "#191717"
+
+sidebar:
+  position: left
+  avatar: /img/JYHE.jpg
+
+widgets:
+  random_posts: true
+  recent_comments: false
+
+footer:
+  since: 2020
+  icon:
+    name: sakura rotate
+    color: "#ffc0cb"
+  count: true
+  powered: true
+
+post:
+  count: true
+
+reward:
+  enable: false
+
+creative_commons:
+  license: by-nc-sa
+  language: deed.zh
+
+audio: []
