@@ -1,0 +1,29 @@
+// 蓝色主题定制 —— 官方注入点：主题 app.styl 会在默认配色之后 import 本文件，
+// 不修改任何主题文件，仅覆盖 CSS 变量。
+// 对照默认值见 node_modules/hexo-theme-shokax/source/css/_colors.styl
+
+// 亮色模式
+:root
+  // 主强调色（原为红色系）：文章标题、分类标签、按钮、链接等
+  --primary-color: #2563eb
+  --color-pink: #3b82f6        // 名字沿用主题变量，语义为"主强调色"
+  --color-orange: #2563eb      // 按钮渐变的收尾色，与主强调色构成蓝→深蓝渐变
+
+  // 由粉色派生的辅助色：滚动条、导航栏渐变、按钮光晕等
+  --color-pink-light: alpha(#dbeafe, .72)
+  --color-pink-light-old: #dbeafe
+  --color-cyan-light: alpha(#eff6ff, .72)
+  --color-cyan-light-old: #eff6ff
+  --color-pink-a3: alpha(#3b82f6, .3)
+  --color-pink-light-a3: alpha(#dbeafe, .3)
+  --color-pink-light-a5: alpha(#dbeafe, .5)
+  --color-pink-light-a7: alpha(#dbeafe, .7)
+
+// 暗色模式（主题在 [data-theme="dark"]:root 下重新定义了这些变量，需对应覆盖）
+[data-theme="dark"]:root
+  --primary-color: #5f9dfb
+  --color-pink: alpha(lighten(#3b82f6, 20%), .8)
+  --color-orange: alpha(lighten(#2563eb, 20%), .8)
+  --color-pink-light: shade(#dbeafe, 80%)
+  --color-cyan-light: shade(#eff6ff, 80%)
+  --color-pink-a3: alpha(#3b82f6, .3)

@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://jyhe0000.github.io
-root: /jianyuanhe.github.io
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -90,7 +90,7 @@ theme: shokax
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:JYhe0000/jianyuanhe.github.io.git
+  repo: git@github.com:JYhe0000/JYhe0000.github.io.git
   branch: main
 
 # Feed (shokaX templates)

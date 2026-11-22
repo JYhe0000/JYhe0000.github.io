@@ -1,26 +1,28 @@
-// 项目站点部署在子路径(/jianyuanhe.github.io/)下：
-// 1. 文章内容中的站点绝对路径(/img/... 等)需要经过 url_for 加上 root 前缀
-// 2. 主题部分 helper 拼接 config.url 时未带 root，渲染后统一补齐
-const SITE_ROOT = '/jianyuanhe.github.io';
-const SITE_ORIGIN = 'https://jyhe0000.github.io';
+// 路径前缀自适应：从 hexo 配置动态读取 url/root，不修改任何主题文件。
+// - root 非根路径时（项目站点子目录部署）：给内容/封面中未经 url_for 的站点绝对路径补前缀
+// - root 为 "/" 时（用户站点根路径部署）：无需处理，全部跳过
+const siteRoot = () => (hexo.config.root || '/').replace(/\/$/, '');
 
 hexo.extend.filter.register('after_post_render', (data) => {
-  const urlFor = hexo.extend.helper.get('url_for').bind(hexo);
+  const root = siteRoot();
+  if (root === '') return data; // 根路径部署，无需补前缀
   data.content = data.content.replace(
     /(<(?:img|a|source|video|audio|image)[^>]*?\s(?:src|href|xlink:href))="(\/[^"]*)"/g,
-    (m, attr, path) => `${attr}="${urlFor(path)}"`
+    (m, attr, path) => `${attr}="${root}${path}"`
   );
   return data;
 }, 1);
 
 hexo.extend.filter.register('after_render:html', (str) => {
-  let out = str.replace(
-    new RegExp(`(${SITE_ORIGIN})/(?!jianyuanhe\\.github\\.io)`, 'g'),
-    `$1${SITE_ROOT}/`
-  );
-  // 主题封面图等未经 url_for 的站点绝对路径（已带 root 的不会命中）
-  out = out
-    .replace(/((?:src|href)=")\/((?:img|assets)\/)/g, `$1${SITE_ROOT}/$2`)
-    .replace(/(url\((?:&quot;|")?)\/((?:img|assets)\/)/g, `$1${SITE_ROOT}/$2`);
-  return out;
+  const root = siteRoot();
+  if (root === '') return str;
+  // 主题 helper 拼接 config.url 时未带 root 的 URL（canonical/og:url/封面等）统一补齐
+  const origin = (hexo.config.url || '').replace(/\/$/, '');
+  if (!origin) return str;
+  const escaped = origin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const rootEscaped = root.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return str
+    .replace(new RegExp(`(${escaped})/(?!${rootEscaped.slice(1)})`, 'g'), `$1${root}/`)
+    .replace(/((?:src|href)=")\/((?:img|assets)\b)/g, `$1${root}/$2`)
+    .replace(/(url\((?:&quot;|")?)\/((?:img|assets)\b)/g, `$1${root}/$2`);
 }, 1);
